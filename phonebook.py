@@ -93,3 +93,17 @@ class PhoneBook:
     def close_connection(self):
         self.cursor.close()
         self.conn.close()
+
+
+# Функция для отображения меню и обработки выбора пользователя
+def menu():
+    print("Phonebook Menu:")
+    print("1. Add contact")
+    print("2. Search contact")
+    print("3. Delete contact")
+    print("4. Update contact")
+    print("5. View all contacts")
+    print("6. Import contacts")
+    print("7. Exit")
+    choice = input("Enter your choice: ")
+    return choice
