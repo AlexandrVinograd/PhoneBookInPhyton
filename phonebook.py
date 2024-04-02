@@ -107,3 +107,65 @@ def menu():
     print("7. Exit")
     choice = input("Enter your choice: ")
     return choice
+
+
+# Основная функция программы
+def main():
+    # Создание объекта телефонного справочника
+    phonebook = PhoneBook('phonebook.db')
+    while True:
+        # Отображение меню и обработка выбора пользователя
+        choice = menu()
+        if choice == '1':
+            # Запрос данных для добавления нового контакта
+            name = input("Enter name: ")
+            phone_number = input("Enter phone number: ")
+            email = input("Enter email: ")
+            birthday = input("Enter birthday: ")
+            address = input("Enter address: ")
+            # Добавление нового контакта
+            phonebook.add_contact(name, phone_number, email, birthday, address)
+            print("Contact added successfully.")
+        elif choice == '2':
+            # Поиск контакта по имени
+            name = input("Enter name to search: ")
+            result = phonebook.search_contact(name)
+            if result:
+                for row in result:
+                    print(row)
+            else:
+                print("Contact not found.")
+        elif choice == '3':
+            # Удаление контакта по id
+            id = input("Enter ID of contact to delete: ")
+            phonebook.delete_contact(id)
+            print("Contact deleted successfully.")
+        elif choice == '4':
+            # Обновление контакта по id
+            id = input("Enter ID of contact to update: ")
+            name = input("Enter new name: ")
+            phone_number = input("Enter new phone number: ")
+            email = input("Enter new email: ")
+            birthday = input("Enter new birthday: ")
+            address = input("Enter new address: ")
+            phonebook.update_contact(id, name, phone_number, email, birthday, address)
+            print("Contact updated successfully.")
+        elif choice == '5':
+            # Просмотр всех контактов
+            contacts = phonebook.view_contacts()
+            for contact in contacts:
+                print(contact)
+        elif choice == '6':
+            # Импорт контактов из файла
+            filename = input("Enter filename to import: ")
+            phonebook.import_contacts(filename)
+        elif choice == '7':
+            # Закрытие соединения с базой данных и выход из программы
+            phonebook.close_connection()
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+# Запуск основной функции программы, если файл запускается напрямую
+if __name__ == "__main__":
+    main()
